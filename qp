@@ -1,0 +1,61 @@
+import pandas as pd
+import numpy as np
+
+# Set a random seed for reproducibility
+np.random.seed(24)
+
+# Create a DataFrame with a column 'A' and add four more random columns 'B', 'C', 'D', and 'E'
+df = pd.DataFrame({'A': np.linspace(1, 10, 10)})
+df = pd.concat([df, pd.DataFrame(np.random.randn(10, 4), columns=list('BCDE'))], axis=1)
+
+# Introduce NaN values to the DataFrame
+df.iloc[0, 2] = np.nan
+df.iloc[3, 3] = np.nan
+df.iloc[4, 1] = np.nan
+df.iloc[9, 4] = np.nan
+
+print("Original DataFrame:")
+print(df)
+
+# Define a function to apply styles to NaN values in red and non-NaN values in black
+def color_nan_red(val):
+    color = 'red' if pd.isna(val) else 'black'
+    return 'color: {}'.format(color)
+
+# Apply the formatting to the DataFrame
+styled_df = df.applymap(color_nan_red)
+
+# Display the DataFrame
+print("\nNaN values in red and non-NaN values in black:")
+print(styled_df)
+
+
+
+
+
+
+
+
+
+import pandas as pd
+import numpy as np
+
+# Set a random seed for reproducibility
+np.random.seed(24)
+df = pd.DataFrame({'A': np.linspace(1, 10, 10)})
+df = pd.concat([df, pd.DataFrame(np.random.randn(10, 4), columns=list('BCDE'))],
+axis=1)
+print("Original array:")
+print(df)
+
+
+# Define a function to format values as HTML-style strings
+def color_negative_red(val):
+    color = 'red' if val < 0 else 'black'
+    return 'color: {}'.format(color)
+
+# Create a new DataFrame with HTML-style formatted values
+styled_df = df.applymap(color_negative_red)
+
+# Display the DataFrame
+print(styled_df)
